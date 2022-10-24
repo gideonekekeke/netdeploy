@@ -3,7 +3,8 @@ import express, { Response, Request, Application } from "express";
 const port: number | string = process.env.PORT || 5000;
 import mongoose from "mongoose";
 const URL: string = "mongodb://localhost/AJwalletDB";
-
+const url_online =
+	"mongodb+srv://gideon:NTp46J2P7Efieni@cluster0.7rupp.mongodb.net/AjwalletDB?retryWrites=true&w=majority";
 import user from "./Route/UserRouter";
 import fol from "./Route/FollowRoute";
 import wallet from "./Route/WalletRoute";
@@ -13,7 +14,7 @@ import cors from "cors";
 const app: Application = express();
 
 mongoose
-	.connect(`${process.env.MONGODB_URI}`)
+	.connect(url_online)
 	.then(() => {
 		console.log("database is connected");
 	})
