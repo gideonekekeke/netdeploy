@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const userController_1 = require("./../controllers/userController");
+const express_1 = __importDefault(require("express"));
+const router = express_1.default.Router();
+const userController_2 = require("../controllers/userController");
+router.route("/").get(userController_2.getUsers);
+router.route("/create").post(userController_1.createUser);
+router.route("/login").post(userController_1.loginUser);
+router.route("/quer").get(userController_1.queryData);
+router.route("/:id").get(userController_2.singleUser);
+router.route("/update/:id").patch(userController_2.updateUser);
+router.route("/verify/:id").get(userController_1.verifyUser);
+router.route("/remove/:id").patch(userController_2.removeUser);
+router.route("/fogotpass").post(userController_1.forgotPassword);
+router.route("/reset/:id/:token").post(userController_1.resetPassword);
+exports.default = router;
