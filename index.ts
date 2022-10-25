@@ -3,8 +3,7 @@ import express, { Response, Request, Application } from "express";
 const port: number | string = process.env.PORT || 5000;
 import mongoose from "mongoose";
 const URL: string = "mongodb://localhost/AJwalletDB";
-const url_online =
-	"mongodb+srv://gideon:NTp46J2P7Efieni@cluster0.7rupp.mongodb.net/AjwalletDB?retryWrites=true&w=majority";
+const url_online: any = process.env.MONGODB_URI;
 import user from "./Route/UserRouter";
 import fol from "./Route/FollowRoute";
 import wallet from "./Route/WalletRoute";

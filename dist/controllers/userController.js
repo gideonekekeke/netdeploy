@@ -36,8 +36,8 @@ const transporter = nodemailer_1.default.createTransport({
     service: "gmail",
     port: 587,
     auth: {
-        user: "Gideonekeke64@gmail.com",
-        pass: "sgczftichnkcqksx",
+        user: process.env.USER_EMAIL,
+        pass: process.env.USER_PASS,
     },
 });
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -108,7 +108,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const salt = yield bcrypt_1.default.genSalt(10);
         const hash = yield bcrypt_1.default.hash(password, salt);
         const generateToken = crypto_1.default.randomBytes(32).toString("hex");
-        const getToken = jsonwebtoken_1.default.sign({ generateToken }, "$Gtgutjtjt-5ydnfhdfg$f0-77r#77d$hjfdbfbf", { expiresIn: "1d" });
+        const getToken = jsonwebtoken_1.default.sign({ generateToken }, `${process.env.SECRETE_USER}`, { expiresIn: "1d" });
         const User = yield UserModel_1.default.create({
             userName,
             fullName,
@@ -163,7 +163,9 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     return res.status(200).json({
                         message: `Welcome back ${findUser.userName}`,
                         data: info,
-                        token: jsonwebtoken_1.default.sign({ _id: findUser === null || findUser === void 0 ? void 0 : findUser._id }, "$Gtgutjtjt-5ydnfhdfg$f0-77r#77d$hjfdbfbf", { expiresIn: "20m" }),
+                        token: jsonwebtoken_1.default.sign({ _id: findUser === null || findUser === void 0 ? void 0 : findUser._id }, `${process.env.SECRETE_USER}`, {
+                            expiresIn: "20m",
+                        }),
                     });
                 }
                 else {
@@ -238,7 +240,9 @@ const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
     console.log(findUser);
     const user = yield UserModel_1.default.findById(req.params.id);
     const generateToken = crypto_1.default.randomBytes(32).toString("hex");
-    const getToken = jsonwebtoken_1.default.sign({ generateToken }, "$Gtgutjtjt-5ydnfhdfg$f0-77r#77d$hjfdbfbf", { expiresIn: "1d" });
+    const getToken = jsonwebtoken_1.default.sign({ generateToken }, `${process.env.SECRETE_USER}`, {
+        expiresIn: "1d",
+    });
     try {
         if ((findUser === null || findUser === void 0 ? void 0 : findUser.verified) && (findUser === null || findUser === void 0 ? void 0 : findUser.verifiedToken) === "") {
             if (findUser) {
