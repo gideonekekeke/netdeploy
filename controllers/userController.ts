@@ -13,8 +13,8 @@ const transporter = nodemailer.createTransport({
 	service: "gmail",
 	port: 587,
 	auth: {
-		user: process.env.USER_EMAIL,
-		pass: process.env.USER_PASS,
+		user: "Gideonekeke64@gmail.com",
+		pass: "sgczftichnkcqksx",
 	},
 });
 
@@ -102,7 +102,7 @@ export const createUser = async (
 		const generateToken: string = crypto.randomBytes(32).toString("hex");
 		const getToken = jwt.sign(
 			{ generateToken },
-			`${process.env.SECRETE_USER}`,
+			"$Gtgutjtjt-5ydnfhdfg$f0-77r#77d$hjfdbfbf",
 			{ expiresIn: "1d" },
 		);
 
@@ -169,10 +169,8 @@ export const loginUser = async (req: Request, res: Response) => {
 						data: info,
 						token: jwt.sign(
 							{ _id: findUser?._id },
-							`${process.env.SECRETE_USER}`,
-							{
-								expiresIn: "20m",
-							},
+							"$Gtgutjtjt-5ydnfhdfg$f0-77r#77d$hjfdbfbf",
+							{ expiresIn: "20m" },
 						),
 					});
 				} else {
@@ -257,9 +255,11 @@ export const forgotPassword = async (req: Request, res: Response) => {
 	const user = await userModel.findById(req.params.id);
 
 	const generateToken: string = crypto.randomBytes(32).toString("hex");
-	const getToken = jwt.sign({ generateToken }, `${process.env.SECRETE_USER}`, {
-		expiresIn: "1d",
-	});
+	const getToken = jwt.sign(
+		{ generateToken },
+		"$Gtgutjtjt-5ydnfhdfg$f0-77r#77d$hjfdbfbf",
+		{ expiresIn: "1d" },
+	);
 
 	try {
 		if (findUser?.verified && findUser?.verifiedToken === "") {
