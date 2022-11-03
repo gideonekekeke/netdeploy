@@ -8,6 +8,6 @@ import {
 import { createHistory } from "../controllers/HistoryController";
 
 router.route("/:id/create").post(createWallet);
-router.route("/:id").get(getWallet);
+router.route("/:id/wallet").get(getWallet);
 router.route("/:myID/:recieverID/send").patch(createWalletTransaction);
 export default router;

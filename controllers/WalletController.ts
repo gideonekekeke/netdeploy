@@ -12,7 +12,7 @@ export const createWallet = async (
 		const getUser = await UserModel.findById(req.params.id);
 		const getWallet = await WalletModel.create({
 			_id: getUser?._id,
-			totalBalance: 100,
+			totalBalance: 1000,
 			credit: 0,
 			debit: 0,
 			token: getUser?.accesstoken,
@@ -35,7 +35,12 @@ export const getWallet = async (
 	res: Response,
 ): Promise<Response> => {
 	try {
-		const getUser = await WalletModel.findById(req.params.id);
+		const getUser = await WalletModel.findById(req.params.id).populate({
+			path: "history",
+			options: {
+				sort: { createdAt: -1 },
+			},
+		});
 		return res.status(200).json({
 			message: "successfull",
 			data: getUser,

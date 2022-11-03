@@ -13,7 +13,7 @@ import cors from "cors";
 const app: Application = express();
 
 mongoose
-	.connect(url_online)
+	.connect(URL)
 	.then(() => {
 		console.log("database is connected");
 	})

@@ -24,6 +24,6 @@ router.route("/update/:id").patch(updateUser);
 router.route("/verify/:id").get(verifyUser);
 router.route("/remove/:id").patch(removeUser);
 router.route("/fogotpass").post(forgotPassword);
-router.route("/reset/:id/:token").post(resetPassword);
+router.route("/reset/:id").post(resetPassword);
 
 export default router;
