@@ -43,6 +43,7 @@ export const createHistory = async (
 				recieviedForm: getUser?.fullName,
 				transactionDescription: yourWallet?.paymentDescription,
 				transactionsReference: time,
+				sentTo: yourUser?.fullName,
 				availableBalance: yourWallet?.totalBalance,
 				paymentType: yourWallet?.debit === 0 ? "credit" : "debit",
 			});

@@ -146,6 +146,7 @@ export const createUser = async (
 
 		return res.status(200).json({
 			message: "Please check your mail to verify",
+			data: User,
 		});
 	} catch (err) {
 		return res.status(404).json({ message: err });
@@ -241,9 +242,13 @@ export const verifyUser = async (
 };
 
 export const queryData = async (req: Request, res: Response) => {
-	const search = req.query;
-	const finding = await userModel.findOne(search);
-	res.status(200).send(finding);
+	try {
+		const search = req.query;
+		const finding = await userModel.findOne(search);
+		res.status(200).send(finding);
+	} catch (err) {
+		return res.status(404).json({ message: err });
+	}
 };
 
 // forgot password
@@ -319,21 +324,15 @@ export const resetPassword = async (req: Request, res: Response) => {
 		const hashedNew = await bcrypt.hash(password, salt);
 
 		if (user) {
-			if (user._id && req.params.token) {
-				await userModel.findByIdAndUpdate(user._id, {
-					password: hashedNew,
-				});
-			} else {
-				return res.status(404).json({
-					message: "user not found",
-				});
-			}
+			await userModel.findByIdAndUpdate(user._id, {
+				password: hashedNew,
+			});
 		} else {
 			return res.status(404).json({
 				message: "user not found",
 			});
 		}
-		return res.status(404).json({ message: "passoword has been changed " });
+		return res.status(200).json({ message: "passoword has been changed " });
 	} catch (err) {
 		return res.status(404).json({ message: err });
 	}
